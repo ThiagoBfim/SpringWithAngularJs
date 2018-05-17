@@ -1,0 +1,14 @@
+<label for="modelo" class="col-sm-6">Modelo:</label>
+<input type="text" name="modelo" class="form-control col-sm-10 required"
+       required ng-model="cadastroCtrl.author.modelo.descricao"/>
+<div style="color: red" class="col-md-12"
+     ng-show="form.modelo.$dirty && form.modelo.$invalid">Informe o
+    Modelo.
+</div>
+<div ng-show="modelos.length > 0" class="col-md-12" style="">
+    <ul ng-repeat="modelo in modelos">
+        <li ng-click="cadastroCtrl.selectModelo(modelo)">{{
+            modelo.descricao }}
+        </li>
+    </ul>
+</div>

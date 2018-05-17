@@ -1,0 +1,44 @@
+<meta charset="UTF-8">
+<div class="card bg-light container">
+    <h1>Cadastro</h1>
+    <div class="card-body">
+        <form name="form" novalidate
+              ng-submit="form.$valid && cadastroCtrl.salvar()">
+            <div
+                    ng-class="cadastroCtrl.success ? 'alert alert-success' : 'alert alert-danger'"
+                    id="errorMessage" ng-show="temMensagem">{{mensagem}}
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="firstName" class="col-sm-6">Nome:</label> <input
+                        type="text" id="firstName" name="firstName"
+                        class="form-control col-sm-10 required"
+                        ng-model="cadastroCtrl.author.firstName" required/>
+                    <div style="color: red" class="col-md-12"
+                         ng-show="form.firstName.$dirty && form.firstName.$invalid">Nome invalido.
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="lastName" class="col-sm-6">Sobrenome:</label> <input
+                        type="text" id="lastName" name="lastName"
+                        class="form-control col-sm-10 required"
+                        ng-model="cadastroCtrl.author.lastName" required/>
+                    <div style="color: red" class="col-md-12"
+                         ng-show="form.lastName.$dirty && form.lastName.$invalid">Sobrenome invalido.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row float-right">
+                <div class="text-right">
+                    <a ui-sref="consulta" class="btn btn-default">Voltar</a>
+                    <div class="btn-group">
+                        <button id="salvar" type="submit" ng-disabled="!form.$valid"
+                                class="btn btn-primary" ng-click="salvar()">{{cadastroCtrl.saveButton}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

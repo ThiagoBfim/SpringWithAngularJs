@@ -1,0 +1,49 @@
+<meta charset="UTF-8">
+<div>
+    <div class="card bg-light container">
+        <h1>Pesquisar</h1>
+        <form>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label for="nome" class="col-sm-6">Nome do autor:</label>
+                    <input type="text" id="nome" name="nome" class="form-control col-sm-10"
+                           ng-model="consultaCtrl.author.firstName">
+                </div>
+                <div class="col-md-6">
+                    <label for="sobrenome" class="col-sm-6">Sobrenome do autor:</label> <input
+                        type="text" id="sobrenome" name="sobrenome" class="form-control col-sm-10"
+                        ng-model="consultaCtrl.author.lastName">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="container" style="padding-top: 20px;">
+        <table id="tabela" class="table table-striped "
+               ng-show="consultaCtrl.getAutores().length > 0">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody id="authors" ng-repeat="author in consultaCtrl.getAutores()">
+            <tr>
+                <td>{{author.firstName}}</td>
+                <td>{{author.lastName}}</td>
+                <td class="text-right">
+                    <a ui-sref="edicao({id: author.id})" class="btn btn-success">Alterar</a>
+                    <a href="#" class="btn btn-danger" ng-click="consultaCtrl.removerAuthor(author.id)">Excluir</a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="vazio" class="alert alert-info"
+             ng-show="consultaCtrl.getAutores().length <= 0" role="alert">Nenhum autor cadastrado.
+        </div>
+        <a ui-sref="cadastro" class="btn btn-default">Voltar</a>
+    </div>
+</div>
