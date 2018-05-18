@@ -161,7 +161,11 @@
             var index = self.livros.findIndex(function (obj) {
                 return obj.id === result.id
             });
-            self.livros.splice(index, 1, result);
+            if (index >= 0) {
+                self.livros.splice(index, 1, result);
+            } else {
+                self.livros.push(result);
+            }
         }
 
         function editarBook() {

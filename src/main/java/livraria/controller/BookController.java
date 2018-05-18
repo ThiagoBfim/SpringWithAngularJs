@@ -2,8 +2,6 @@ package livraria.controller;
 
 import livraria.entity.Author;
 import livraria.entity.Book;
-import livraria.service.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,9 +21,6 @@ import org.springframework.web.client.RestTemplate;
 public class BookController {
 
     private static final String URL_BOOK = "https://bibliapp.herokuapp.com/api/books";
-
-    @Autowired
-    private BookService bookService;
 
     @PostMapping(value = "/listar")
     public ResponseEntity<Book[]> retrieveBooks(@RequestBody Integer authorId) {

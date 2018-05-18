@@ -7,10 +7,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import livraria.entity.Author;
-import livraria.service.AuthorService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -29,10 +25,6 @@ import org.springframework.web.client.RestTemplate;
 public class AuthorController {
 
     public final static String URL_AUTHOR = "https://bibliapp.herokuapp.com/api/authors";
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorController.class);
-
-    @Autowired
-    private AuthorService authorService;
 
     @PostMapping("/salvar")
     public ResponseEntity<Author> salvar(@RequestBody final Author author) {
