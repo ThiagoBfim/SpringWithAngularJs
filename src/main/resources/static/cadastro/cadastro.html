@@ -38,7 +38,7 @@
                         <tr>
                             <th>Título</th>
                             <th>ISBN</th>
-                            <th>Ações</th>
+                            <th style="width: 20%; text-align: center">Ações</th>
                         </tr>
                         </thead>
 
@@ -46,7 +46,7 @@
                         <tr>
                             <td>{{livro.title}}</td>
                             <td>{{livro.isbn}}</td>
-                            <td class="text-right">
+                            <td style="width: 20%" class="text-right">
                                 <a style="text-decoration: none;" ng-click="cadastroCtrl.editarLivro(livro)"
                                    class="btn btn-success">Alterar</a>
                                 <a style="text-decoration: none;" href="#" class="btn btn-danger"
