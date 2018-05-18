@@ -23,7 +23,7 @@ function config($stateProvider, $urlRouterProvider, RestangularProvider) {
     });
 
     $stateProvider.state('consulta', {
-        url: '/carros',
+        url: '/authors',
         templateUrl: '/consulta',
         controller: 'ConsultaController',
         controllerAs: 'consultaCtrl'

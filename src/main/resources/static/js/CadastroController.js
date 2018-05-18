@@ -20,6 +20,7 @@
         var self = this;
         self.author = {};
         self.livros;
+        self.livrosTemp;
         self.book = {};
         self.success = false;
 
@@ -89,15 +90,17 @@
         }
 
         function cadastrar() {
+            self.livrosTemp = angular.copy(self.livros);
             Restangular
                 .all('/author/salvar')
                 .post(self.author)
                 .then(function (result) {
                         self.author = result;
-                        self.livros = [];
-                        self.livros.forEach(function (livro) {
+                        self.livros = null;
+                        self.livrosTemp.forEach(function (livro) {
                             salvarBook(livro)
                         });
+                        self.livrosTemp = [];
                         self.success = true;
                         $scope.temMensagem = true;
                         $scope.mensagem = "Autor Salvo com Sucesso!";
