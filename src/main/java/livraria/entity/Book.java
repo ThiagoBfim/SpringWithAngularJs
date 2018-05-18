@@ -7,22 +7,21 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class Book extends BaseEntity {
 
-
     @NotEmpty
-    private String titulo;
+    private String title;
 
     @NotEmpty
     private String isbn;
 
     @NotEmpty
-    private Author author;
+    private Integer authorId;
 
-    public String getTitulo() {
-        return titulo;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getIsbn() {
@@ -33,12 +32,11 @@ public class Book extends BaseEntity {
         this.isbn = isbn;
     }
 
-    public Author getAuthor() {
-        return author;
+    public Integer getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
     }
-
 }

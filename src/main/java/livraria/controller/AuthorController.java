@@ -24,11 +24,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-@RestController()
+@RestController
 @RequestMapping("/author")
 public class AuthorController {
 
-    private final static String URL = "https://bibliapp.herokuapp.com/api/authors";
+    public final static String URL_AUTHOR = "https://bibliapp.herokuapp.com/api/authors";
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthorController.class);
 
     @Autowired
@@ -37,14 +37,14 @@ public class AuthorController {
     @PostMapping("/salvar")
     public ResponseEntity<Author> salvar(@RequestBody final Author author) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity(URL, author, Author.class);
+        return restTemplate.postForEntity(URL_AUTHOR, author, Author.class);
 
     }
 
     @PutMapping("/alterar")
     public ResponseEntity<Author> editar(@RequestBody final Author author) {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put(URL, author, Author.class);
+        restTemplate.put(URL_AUTHOR, author, Author.class);
         return new ResponseEntity<>(author, HttpStatus.OK);
     }
 
@@ -52,7 +52,7 @@ public class AuthorController {
     public ResponseEntity<List<Author>> retrieveByFiltro(@RequestBody(required = false) final Author author) {
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Author[]> authors = restTemplate.getForEntity(URL, Author[].class);
+        ResponseEntity<Author[]> authors = restTemplate.getForEntity(URL_AUTHOR, Author[].class);
         //TODO procurar qual é o method da API que consulta com filtro.
         if (author != null) {
             List<Author> autores = Stream.of(authors.getBody())
@@ -63,15 +63,15 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getAuthor(@PathVariable("id") Integer id) {
+    public ResponseEntity<Author> getAuthor(@PathVariable("id") Integer id) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForEntity(URL + "/" + id, Author.class);
+        return new ResponseEntity<>(restTemplate.getForObject(URL_AUTHOR + "/" + id, Author.class), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.delete(URL + "/" + id);
+        restTemplate.delete(URL_AUTHOR + "/" + id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

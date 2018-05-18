@@ -9,25 +9,64 @@
                     id="errorMessage" ng-show="temMensagem">{{mensagem}}
             </div>
             <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="firstName" class="col-sm-6">Nome:</label> <input
-                        type="text" id="firstName" name="firstName"
-                        class="form-control col-sm-10 required"
-                        ng-model="cadastroCtrl.author.firstName" required/>
-                    <div style="color: red" class="col-md-12"
-                         ng-show="form.firstName.$dirty && form.firstName.$invalid">Nome invalido.
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="firstName" class="col-sm-6">Nome:</label> <input
+                            type="text" id="firstName" name="firstName"
+                            class="form-control col-sm-10 required"
+                            ng-model="cadastroCtrl.author.firstName" required/>
+                        <div style="color: red" class="col-md-12"
+                             ng-show="form.firstName.$dirty && form.firstName.$invalid">Nome invalido.
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <label for="lastName" class="col-sm-6">Sobrenome:</label> <input
-                        type="text" id="lastName" name="lastName"
-                        class="form-control col-sm-10 required"
-                        ng-model="cadastroCtrl.author.lastName" required/>
-                    <div style="color: red" class="col-md-12"
-                         ng-show="form.lastName.$dirty && form.lastName.$invalid">Sobrenome invalido.
+                    <div class="col-md-6">
+                        <label for="lastName" class="col-sm-6">Sobrenome:</label> <input
+                            type="text" id="lastName" name="lastName"
+                            class="form-control col-sm-10 required"
+                            ng-model="cadastroCtrl.author.lastName" required/>
+                        <div style="color: red" class="col-md-12"
+                             ng-show="form.lastName.$dirty && form.lastName.$invalid">Sobrenome invalido.
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="container" style="padding-top: 20px;">
+                    <table id="tabela" class="table table-striped "
+                           ng-show="cadastroCtrl.getLivros().length > 0">
+                        <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>ISBN</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="livros" ng-repeat="livro in cadastroCtrl.getLivros()">
+                        <tr>
+                            <td>{{livro.title}}</td>
+                            <td>{{livro.isbn}}</td>
+                            <td class="text-right">
+                                <a style="text-decoration: none;" ng-click="cadastroCtrl.editarLivro(livro)"
+                                   class="btn btn-success">Alterar</a>
+                                <a style="text-decoration: none;" href="#" class="btn btn-danger"
+                                   ng-click="cadastroCtrl.removerLivro(livro.id)">Excluir</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id="vazio" class="alert alert-info"
+                         ng-show="cadastroCtrl.getLivros().length <= 0" role="alert">Nenhum livro cadastrado.
+                    </div>
+                    <div class="row" style="text-align: right">
+                        <a style="text-decoration: none;" class="btn btn-primary"
+                           ng-click="cadastroCtrl.adicionarLivro()">Adicionar Livro</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <br>
             <div class="form-group row float-right">
                 <div class="text-right">
                     <a ui-sref="consulta" class="btn btn-default">Voltar</a>
@@ -39,6 +78,7 @@
                 </div>
             </div>
         </form>
+        <fabricante></fabricante>
     </div>
 
 </div>
