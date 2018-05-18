@@ -94,6 +94,7 @@
                 .post(self.author)
                 .then(function (result) {
                         self.author = result;
+                        self.livros = [];
                         self.livros.forEach(function (livro) {
                             salvarBook(livro)
                         });
@@ -136,6 +137,7 @@
         }
 
         function salvarBook(livro) {
+
             if (self.author.id != null) {
                 livro.authorId = self.author.id;
                 Restangular
