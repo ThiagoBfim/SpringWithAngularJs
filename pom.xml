@@ -5,7 +5,7 @@
     <groupId>br.net.indt.livraria</groupId>
     <artifactId>livraria</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>Projeto INDT</name>
     <description>Projeto Para o processo seletivo da INDT</description>
     <parent>

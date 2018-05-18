@@ -7,6 +7,9 @@ Essa aplicação foi realizada com Spring Boot e Maven, então apos importar o p
 A aplicação sobe na porta 8080, http://localhost:8080/
 Tomar cuidado para não subir com https, o correto é HTTP nessa aplicação.
 
+<b>A aplicação foi feita para gerar um jar, então a unica coisa necessária para subir a aplicação é 
+executar o comando <i>maven clean install</i> na raiz e depois executar o jar: <i>java -jar livraria-1.0-SNAPSHOT.jar</i></b>
+
 Observações:
 Não foi realizado nenhum armazenamento em banco de dados, essa aplicação apenas realiza consulta de serviço Rest do servidor (https://bibliapp.herokuapp.com/)
 
