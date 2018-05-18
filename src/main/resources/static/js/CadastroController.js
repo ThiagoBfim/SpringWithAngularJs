@@ -12,20 +12,16 @@
             };
         });
 
-    CadastroController.$inject = ['$http', '$scope', 'Restangular', '$stateParams'];
+    CadastroController.$inject = ['$scope', 'Restangular', '$stateParams'];
 
 
-    function CadastroController($http, $scope, Restangular, $stateParams) {
+    function CadastroController($scope, Restangular, $stateParams) {
 
         var self = this;
         self.author = {};
-        self.livros = {};
+        self.livros;
         self.book = {};
         self.success = false;
-        self.descricaoTemp = '';
-        $scope.categorias = [];
-        $scope.tracoes = [];
-        $scope.modelos = [];
 
         $scope.temMensagem = false;
         $scope.mensagem = "";
@@ -40,9 +36,9 @@
             return self.livros;
         };
 
-        this.salvarLivro = function () {
-            if (self.book.id == null) {
-                salvarBook();
+        this.salvarLivro = function (livro) {
+            if (livro.id == null) {
+                salvarBook(livro);
             } else {
                 editarBook();
             }
@@ -60,15 +56,14 @@
         this.editarLivro = function (livro) {
             self.saveBookButton = "Alterar";
             $('#modalBook').modal('show');
-            this.book = angular.copy(livro);
+            self.book = angular.copy(livro);
         };
 
         this.adicionarLivro = function () {
             self.saveBookButton = "Salvar";
+            self.book = {};
             $('#modalBook').modal('show');
-            this.book = [];
         };
-
 
         this.salvar = function () {
             if (self.author.id == null) {
@@ -97,10 +92,15 @@
             Restangular
                 .all('/author/salvar')
                 .post(self.author)
-                .then(function () {
+                .then(function (result) {
+                        self.author = result;
+                        self.livros.forEach(function (livro) {
+                            salvarBook(livro)
+                        });
                         self.success = true;
                         $scope.temMensagem = true;
                         $scope.mensagem = "Autor Salvo com Sucesso!";
+
                     },
                     function (result) {
                         $scope.mensagem = result.data[0];
@@ -135,20 +135,33 @@
                 });
         }
 
-        function salvarBook() {
+        function salvarBook(livro) {
             if (self.author.id != null) {
-                self.book.authorId = self.author.id;
+                livro.authorId = self.author.id;
                 Restangular
                     .all('/book/salvar')
-                    .post(self.book)
+                    .post(livro)
                     .then(function (result) {
-                        self.livros.push(result);
-                        self.book = [];
+                        if (self.livros == null) {
+                            self.livros = [];
+                        }
+                        replaceBookFromList(result);
+                        self.book = {};
                     })
             } else {
+                if (self.livros == null) {
+                    self.livros = [];
+                }
                 self.livros.push(self.book);
-                self.book = [];
+                self.book = {};
             }
+        }
+
+        function replaceBookFromList(result) {
+            var index = self.livros.findIndex(function (obj) {
+                return obj.id === result.id
+            });
+            self.livros.splice(index, 1, result);
         }
 
         function editarBook() {
@@ -157,11 +170,8 @@
                 .all('/book/alterar')
                 .customPUT(self.book)
                 .then(function () {
-                    var index = self.livros.findIndex(function (obj) {
-                        return obj.id === self.book.id
-                    });
-                    self.livros.splice(index, 1, self.book);
-                    self.book = [];
+                    replaceBookFromList(self.book);
+                    self.book = {};
                 })
         }
     }

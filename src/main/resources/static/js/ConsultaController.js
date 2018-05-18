@@ -6,34 +6,45 @@
         .config(config)
         .controller('ConsultaController', ConsultaController);
 
-    ConsultaController.$inject = ['$http', '$q', '$scope', 'Restangular'];
+    ConsultaController.$inject = ['$scope', 'Restangular'];
 
-    function ConsultaController($http, $q, $scope, Restangular) {
+    function ConsultaController($scope, Restangular) {
 
-        var carroFilter;
         var self = this;
-        self.hasNoElement = true;
         self.authors;
-        self.categorias = [];
-        self.tracoes = [];
         self.author = {
             firstName: null,
             lastName: null
         };
-
-        Restangular.all('/author/listar').post(self.author).then(
-            function (result) {
-                self.authors = result;
-            });
-
-        this.getAutores = function () {
-            return self.authors;
-        };
+        listar();
 
         $scope.$watch('[consultaCtrl.author.firstName, consultaCtrl.author.lastName]',
             function (val) {
                 listar();
             });
+
+
+        this.ordenar = function (variavel) {
+            self.authors.sort(function (primeiro, segundo) {
+                if (variavel == 'firstName') {
+                    return primeiro.firstName >= segundo.firstName
+                }
+                if (variavel == 'lastName') {
+                    return primeiro.firstName >= segundo.firstName
+                }
+            });
+
+        };
+
+        this.getAutores = function () {
+            return self.authors;
+        };
+
+        this.removerAuthor = function (id) {
+            Restangular.all('/author/' + id).remove().then(function () {
+                listar();
+            });
+        };
 
 
         function listar() {
@@ -43,11 +54,6 @@
                 });
         }
 
-        this.removerAuthor = function (id) {
-            Restangular.all('/author/' + id).remove().then(function () {
-                listar();
-            });
-        };
 
     }
 

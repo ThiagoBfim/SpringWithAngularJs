@@ -4,4 +4,8 @@
 
 .required.ng-valid.ng-dirty {
     border-color: green;
-} 
+}
+
+.select-coluna {
+    cursor: pointer;
+}

@@ -19,13 +19,13 @@
     </div>
 
     <div class="container" style="padding-top: 20px;">
-        <table id="tabela" class="table table-striped "
+        <table id="tabela" class="table table-hover"
                ng-show="consultaCtrl.getAutores().length > 0">
             <thead>
             <tr>
-                <th>Nome</th>
-                <th>Sobrenome</th>
-                <th></th>
+                <th class="select-coluna" ng-click="consultaCtrl.ordenar('firstName')">Nome</th>
+                <th class="select-coluna" ng-click="consultaCtrl.ordenar('lastName')">Sobrenome</th>
+                <th>Ações</th>
             </tr>
             </thead>
 
@@ -41,9 +41,11 @@
             </tr>
             </tbody>
         </table>
-        <div id="vazio" class="alert alert-info"
+        <div id="vazio" class=" alert alert-info"
              ng-show="consultaCtrl.getAutores().length <= 0" role="alert">Nenhum autor cadastrado.
         </div>
-        <a ui-sref="cadastro" class="btn btn-default">Voltar</a>
+        <div style="text-align: right">
+            <a ui-sref="cadastro" class="btn btn-default">Cadastrar</a>
+        </div>
     </div>
 </div>
